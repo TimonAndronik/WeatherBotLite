@@ -38,3 +38,4 @@ C:\Users\ASUS\source\repos\WeatherBot2\WeatherBot2\obj\Debug\net8.0\refint\Weath
 C:\Users\ASUS\source\repos\WeatherBot2\WeatherBot2\obj\Debug\net8.0\WeatherBot2.pdb
 C:\Users\ASUS\source\repos\WeatherBot2\WeatherBot2\obj\Debug\net8.0\WeatherBot2.genruntimeconfig.cache
 C:\Users\ASUS\source\repos\WeatherBot2\WeatherBot2\obj\Debug\net8.0\ref\WeatherBot2.dll
+C:\Users\ASUS\source\repos\WeatherBot2\WeatherBot2\obj\Debug\net8.0\WeatherBot2.sourcelink.json
