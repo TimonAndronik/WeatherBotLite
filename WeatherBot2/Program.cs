@@ -101,7 +101,7 @@ namespace WeatherBot
                 string[] parts = message.Text.Split(" ", 2);
                 if (parts.Length < 2)
                 {
-                    await botClient.SendMessage(message.Chat.Id, "❌ Вкажи місто після команди! По шаблону: /weather_forecast (місто)");
+                    await botClient.SendMessage(message.Chat.Id, "❌ Вкажи місто після команди! По шаблону: /forecast (місто)");
                     return;
                 }
 
