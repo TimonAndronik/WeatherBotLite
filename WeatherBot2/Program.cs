@@ -50,7 +50,8 @@ namespace WeatherBot
 
                 await botClient.SendMessage(message.Chat.Id, "📝 Інструкція:\n" +
                                           "1. Використовуй команду '/start', щоб відкрити меню.\n" +
-                                          "2. Використовуй команду `/weather (місто)` або просто надай геолокацію, щоб дізнатися погоду в місті.\n");
+                                          "2. Використовуй команду `/weather (місто)` або просто надай геолокацію, щоб дізнатися погоду в місті.\n" +
+                                          "3. Використовуй команду '/forecast (місто)' щоб дізнатися прогноз погоди на 5 днів.");
 
             }
 
@@ -72,10 +73,9 @@ namespace WeatherBot
                 }
             }
 
-
             if (message.Text != null && message.Text.StartsWith("/weather"))
             {
-                string[] parts = message.Text.Split(' ', 2);
+                string[] parts = message.Text.Split(" ", 2);
                 if (parts.Length < 2)
                 {
                     await botClient.SendMessage(message.Chat.Id, "❌ Вкажи місто після команди! По шаблону: /weather (місто)");
@@ -88,6 +88,20 @@ namespace WeatherBot
 
                 return;
             }
+            if (message.Text != null && message.Text.StartsWith("/forecast"))
+            {
+                string[] parts = message.Text.Split(" ", 2);
+                if (parts.Length < 2)
+                {
+                    await botClient.SendMessage(message.Chat.Id, "❌ Вкажи місто після команди! По шаблону: /weather_forecast (місто)");
+                    return;
+                }
+
+                string city = parts[1];
+                string weather = await GetWeatherForForecastAsync(city);
+                await botClient.SendMessage(message.Chat.Id, $"\n{weather}");
+            }
+
         }
 
 
@@ -139,6 +153,49 @@ namespace WeatherBot
                 return "❌ Не вдалося отримати дані про погоду. Переконайся, що місто вказано правильно.";
             }
         }
+
+        static async Task<string> GetWeatherForForecastAsync(string city)
+        {
+            using HttpClient client = new();
+            string url = $"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={WeatherApiKey}&units=metric&lang=ua";
+
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                string json = await response.Content.ReadAsStringAsync();
+
+                JObject data = JObject.Parse(json);
+
+                if (data["list"] != null && data["list"].HasValues)
+                {
+                    var forecasts = data["list"]
+                        .Where(f => f["dt_txt"] != null && f["dt_txt"].ToString().Contains("12:00:00"))
+                        .Take(5)
+                        .Select(forecast =>
+                        {
+                            double temp = (double)forecast["main"]["temp"];
+                            string description = (string)forecast["weather"]?[0]?["description"] ?? "невідомо";
+                            string dateTime = (string)forecast["dt_txt"];
+                            return $"📅 {dateTime}: 🌡 {temp}°C, {description}";
+                        });
+
+                    return $"🌍 Прогноз погоди у {city} на 5 днів:\n" + string.Join("\n", forecasts);
+                }
+                else
+                {
+                    return "❌ Дані про погоду відсутні. Спробуй ще раз.";
+                }
+            }
+            catch (HttpRequestException)
+            {
+                return "❌ Не вдалося отримати дані про погоду. Переконайся, що місто вказано правильно.";
+            }
+            catch (Exception ex)
+            {
+                return $"❌ Помилка: {ex.Message}";
+            }
+        }
+
 
         static string GetWeatherEmoji(string icon)
         {

@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="WeatherBot2 - Copy.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="dapper" Version="2.1.66" />
     <PackageReference Include="mysql.data" Version="9.2.0" />
     <PackageReference Include="newtonsoft.json" Version="13.0.3" />
