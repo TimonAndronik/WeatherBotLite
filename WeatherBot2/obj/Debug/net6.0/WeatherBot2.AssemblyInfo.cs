@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WeatherBot2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd020b8005d319c788ee35a239bbbcd76aaf0884")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9573868872d7f3362f0c3e4e19ce6f26c22820fd")]
 [assembly: System.Reflection.AssemblyProductAttribute("WeatherBot2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WeatherBot2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

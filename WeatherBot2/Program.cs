@@ -5,25 +5,15 @@ using Telegram.Bot.Polling;
 using Newtonsoft.Json.Linq;
 using Telegram.Bot.Types.ReplyMarkups;
 using System;
-using Microsoft.AspNetCore.Http;
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
-app.MapGet("/", async (HttpContext context) =>
-{
-    await context.Response.WriteAsync("Bot is running...");
-});
-
-app.Run($"http://0.0.0.0:{port}");
 
 
 namespace WeatherBot
 {
     class Program
     {
-        private static readonly string BotToken = Environment.GetEnvironmentVariable("BOT_TOKEN");
+        private static readonly string BotToken = "7799928283:AAESCCosJnkx9NRR6D-PwKT9gIBFdFAWrqs";
         private static readonly string WeatherApiKey = "0fd5ae621f0c01510d4f0b3a57362fc1";
 
         static async Task Main(string[] args) 
