@@ -4,6 +4,7 @@ using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Newtonsoft.Json.Linq;
 using Telegram.Bot.Types.ReplyMarkups;
+using System;
 
 
 
@@ -19,6 +20,7 @@ namespace WeatherBot
             var botClient = new TelegramBotClient(BotToken);
             var receiverOptions = new ReceiverOptions { AllowedUpdates = { } };
             botClient.StartReceiving(HandleUpdate, Error, receiverOptions);
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
             Console.ReadLine();
         }
 
