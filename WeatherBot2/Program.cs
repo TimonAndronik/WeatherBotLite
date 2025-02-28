@@ -21,6 +21,7 @@ namespace WeatherBot
             var receiverOptions = new ReceiverOptions { AllowedUpdates = { } };
             botClient.StartReceiving(HandleUpdate, Error, receiverOptions);
             var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            Console.WriteLine("Starting bot...");
             Console.ReadLine();
         }
 
